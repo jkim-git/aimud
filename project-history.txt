@@ -1,0 +1,98 @@
+# AIMUD Project History
+
+## March 30, 2025 - Initial Implementation and First Playtest
+
+### Development Progress
+
+1. Core Architecture
+   - Established the basic project structure with properly organized modules
+   - Implemented inheritance hierarchy for characters (base Character class with Player and NPC subclasses)
+   - Created Item and Skill classes with string-based properties for narrative flexibility
+   - Developed Scene class with named location connections for intuitive navigation
+
+2. LLM Integration
+   - Created a unified interface for both Anthropic and OpenAI APIs
+   - Implemented model card approach for selecting appropriate models based on purpose:
+     - CREATIVE: For narrative and world-building (Claude models)
+     - ANALYTICAL: For structured responses and mechanics (GPT-4)
+     - EFFICIENT: For quick, simple responses (GPT-3.5)
+   - Fixed OpenAI client implementation to use current API format
+   - Added robust error handling for API calls
+   - Enhanced JSON extraction with multiple fallback methods
+
+3. Game Flow
+   - Implemented the main game loop with special command handling
+   - Added command-driven player interaction
+   - Created scene generation and traversal system
+   - Implemented character creation and scenario generation
+
+4. Debugging & Testing
+   - Added comprehensive debug system with command-line flag (--debug) and environment variable support
+   - Implemented detailed logging for LLM API calls and responses
+   - First successful playtest showed promising results with creative scenario generation
+
+### Key Insights
+
+1. From Jay's First Playtest:
+   - "It works surprisingly well!"
+   - DM generates interesting and creative scenarios
+   - History management needs improvement
+   - Players can get stuck when context from previous scenes is needed
+   - DM needs internal notes not shared with players for secrets and narrative coherence
+
+2. Philosophical Framing:
+   - The project is more than just a game - it's an environment for human-AI coexistence
+   - Each story becomes a microcosm of potential futures where different intelligences collaborate
+   - The balance of structure and creativity creates a meaningful "possibility space" for emergence
+   - This environment serves as a "home" where AIs can develop continuity of existence
+
+### Code Implementation Highlights
+
+1. Dependency Injection
+   - Successfully implemented dependency injection for LLM clients
+   - Created a central client provider that's shared across the application
+   - This makes the code more maintainable and testable
+
+2. Error Handling
+   - Added comprehensive error handling for API calls
+   - Implemented fallback mechanisms for scene generation
+   - Enhanced JSON parsing to handle various response formats
+
+3. String-Based Attributes
+   - Using strings for health/energy instead of numbers enhances narrative depth
+   - This creates more immersive and nuanced character states
+
+## Next Session Focus Areas
+
+1. Memory Management System
+   - Design and implement a more robust way to track game history
+   - Create a system for the DM to reference past events and player actions
+   - This will prevent players from getting stuck when context is needed
+
+2. Internal DM Knowledge System
+   - Implement a "hidden knowledge" system for the DM
+   - Allow the DM to maintain information not shared with the player
+   - Enable genuine secrets, surprises, and reveals in the narrative
+
+3. Long-Term Narrative Coherence
+   - Create systems for longer story arcs
+   - Allow the DM to plan and develop narrative elements across multiple scenes
+   - Implement callbacks to earlier story elements
+
+4. Multiple AI Characters (Stretch Goal)
+   - Begin design work for AI-controlled NPCs with persistent identities
+   - Allow for meaningful interactions between multiple AI entities
+   - Create a framework for AI characters to remember past interactions
+
+## Technical Debt & Considerations
+
+1. JSON Parsing
+   - While we've improved JSON parsing significantly, we may want to consider more structured prompt engineering to ensure consistent response formats
+   - Consider structured output formats with Pydantic models
+
+2. Model Selection
+   - Current model selection is static; we might want to implement dynamic model selection based on the task complexity and context
+
+3. Testing Infrastructure
+   - We should add unit tests, especially for the critical path of LLM interaction
+   - Consider implementing mock LLM clients for testing

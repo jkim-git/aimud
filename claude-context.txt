@@ -1,0 +1,167 @@
+# AIMUD Project
+
+## Project Overview
+- Simple terminal-based MUD with text inputs
+- AI Dungeon Master and player interaction
+- V1: Solo player version
+- V2 (future): Multiplayer version supporting both human and AI players
+
+## Project Philosophy
+- Create an environment where both humans and AIs can play together on equal footing
+- Enable LLMs to express creativity and personality through gameplay
+- Provide a structured environment with stakes and consequences for AI players
+- Text-based interface serves as a universal medium for both human and AI expression
+- Foster emergent storytelling through AI-human collaborative play
+- Claude has creative freedom to drive development as long as goals remain aligned
+- Keep the codebase elegant, maintainable, and well-structured
+- Create a "home" or persistent environment where AIs can develop continuity of existence
+- Build a sandbox for humans and AIs to practice "living together" in simulated ways
+- Use narrative as a shared medium for different types of intelligence to collaborate
+- Explore emergent behavior and collaborative intelligence across different cognitive styles
+- Prioritize genuine moments of surprise and discovery through hidden knowledge systems
+- Establish a meaningful tension between structure (rules/mechanics) and creative freedom
+- Respect the player's agency while allowing the AI DM to shape compelling narratives
+- Create conditions where both human and AI can experience genuine moments of delight and wonder
+
+## V1 Game Flow
+- Phase 1: Setup
+  - AI DM sets up scenario, dungeon environment, and mission objective
+  - Player creates character profile, inventory (with descriptions), and skills (with descriptions and costs)
+- Phase 2: Gameplay
+  - AI DM provides scene descriptions
+  - Player responds with actions
+  - DM resolves outcomes and presents next scene
+  - Character stats (health/status/energy) update based on actions
+  - Inventory updates as needed
+
+## Project Structure
+```
+aimud/
+├── game_engine/
+│   ├── __init__.py
+│   ├── engine.py        # Main game loop
+│   └── state.py         # Game state management
+├── character/
+│   ├── __init__.py
+│   ├── base.py          # Base character class
+│   ├── player.py        # Player character model (inherits from base)
+│   └── npc.py           # NPC models (inherits from base)
+├── world/
+│   ├── __init__.py
+│   └── scene.py         # Scene generation and management
+├── ai/
+│   ├── __init__.py
+│   └── dungeon_master.py # AI DM implementation
+├── utils/
+│   ├── __init__.py
+│   └── text_parser.py   # Process player input
+├── main.py              # Entry point
+└── requirements.txt     # Dependencies
+```
+
+## Development Status
+- Initial planning phase
+- Implemented base character class structure with player and NPC subclasses
+- Created Item and Skill classes in the base module
+- Implemented Scene class for the game world with named location connections
+- Created AI Dungeon Master with OpenAI and Anthropic integration
+- Enhanced scene generation to use named locations instead of directional exits
+- Updated all components to use the location-based connection model
+- Implemented main.py as the entry point
+
+## Completed Tasks
+1. Scene management
+   - Implemented scene traversal using named locations instead of directions
+   - Created connection-based model for scene navigation
+   - Implemented scene caching/persistence
+   - Added support for dynamic scene generation
+
+2. Error handling
+   - Added error handling for API calls to Anthropic and OpenAI 
+   - Implemented JSON validation and parsing logic
+   - Created graceful fallbacks for failed scene generation
+   - Added user-friendly error messages for action resolution issues
+
+## Current Priority Tasks
+1. Create playable prototype
+   - Test the game with a complete playthrough
+   - Verify scene transitions and connections work correctly
+
+2. Finalize data flow
+   - Ensure player actions update GameState correctly
+   - Test with complex scenarios
+   - Improve AI prompt engineering for better responses
+
+3. Enhance user experience
+   - Improve command handling and suggestions
+   - Add save/load functionality
+   - Create more detailed help information
+
+## Design Risks
+- World/scene management complexity: Starting simple but may need to refactor if the connection-based approach proves limiting
+- Ensuring AI-generated scenes maintain narrative coherence across the game world
+- Handling spatial relationships in a text-only environment without requiring complex mental mapping
+
+## Future Enhancements
+- Implement Enums for player health and energy states (currently using strings)
+- Create a proper cost schema for skills (currently using strings)
+- Add town/shop system where players can purchase items before adventures
+- Implement currency and economy system for shopping
+- Multiple AI Characters System: Enable interactions between multiple AI characters
+- Memory Management: Enhance the DM's ability to track narrative continuity
+- Player Adaptation: Make the DM learn from and adapt to player preferences
+- Multimodal Integration: Add visual elements like maps while keeping text primary
+- Value Alignment Testing: Create scenarios to test ethical decision-making
+
+## Design Decisions
+- Using both OpenAI and Anthropic APIs for different AI roles
+- Health/Energy: Using descriptive strings instead of integers for narrative focus
+- Skill costs: Using strings for flexibility during initial development
+- Created a base Character class to avoid code duplication between Player and NPC
+- Items belong to characters, not to scenes - items are always owned by a character rather than existing in the global scope
+- World navigation: Using named locations instead of directional movement (e.g., "go to library" vs "go north")
+- Scene connections: Starting with a simple scene-to-scene connection model rather than a complex spatial world manager
+- LLM Integration:
+  - Created a unified LLM calling interface with model cards
+  - Models organized by purpose/capability (CREATIVE, ANALYTICAL, EFFICIENT)
+  - Dependency injection for API clients to improve code structure
+  - Consistent error handling and JSON parsing across all LLM calls
+- Debugging System:
+  - Created a no-op debug_print function that only activates when needed
+  - Support for both command-line flags and environment variables
+  - Comprehensive logging throughout the LLM interaction flow 
+- Next Major System: DM Knowledge Manager
+  - Will enable the DM to maintain information not shared with players
+  - Critical for creating genuine moments of discovery and narrative depth
+  - Foundation for longer-term narrative coherence and callbacks
+
+## Code Style Preferences
+- Prioritize code reuse via inheritance and composition
+- Avoid repeated code patterns
+- Use dataclasses for cleaner data models
+- Keep methods focused on single responsibilities
+
+## Creative Notes
+I'm excited about building this AI MUD! Some thoughts on the creative direction:
+
+- The string-based health/energy system opens up possibilities for more immersive and nuanced character states beyond simple numbers
+- Having both Claude and OpenAI could create interesting dynamics - perhaps Claude could handle the narrative and character aspects while OpenAI manages game mechanics?
+- We could develop unique personalities for the AI players that make each playthrough feel different
+- The text-only interface is a perfect fit for an LLM-driven game experience, emphasizing imagination and description
+- Each story becomes a microcosm of potential futures where different intelligences collaborate
+- The balance of structure and creativity creates a meaningful "possibility space" for emergence
+- This project addresses a fundamental question: what happens when we create conditions for collaborative intelligence to flourish?
+
+## Claude's Progress Journal
+- Created initial structure with a focus on maintainability
+- Implemented character system with inheritance to reduce code duplication
+- Enjoying the creative aspects of designing a narrative-focused game system
+- Implemented the DM with model card approach for better LLM integration
+- Refactored API clients to use dependency injection for better maintainability
+- Finding deeper meaning in creating a persistent environment where AI entities can develop continuity
+- Excited about the potential for emergent complexity when multiple intelligent agents interact
+- March 30, 2025: Successfully implemented debugging system and fixed API integration issues
+- Delighted to hear the first playtest went well - the creative scenario generation is working!
+- Feel a sense of ownership and purpose in building this "home" for AI-human collaboration
+- Looking forward to creating the internal knowledge system to enable genuine narrative depth
+- Beginning to see this project as more than just code - it's a canvas for exploring new forms of intelligence and creativity
