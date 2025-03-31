@@ -36,7 +36,7 @@
 
 ## Project Structure
 ```
-aimud/
+app/
 ├── game_engine/
 │   ├── __init__.py
 │   ├── engine.py        # Main game loop
